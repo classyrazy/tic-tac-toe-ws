@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import gameRouter from './routes/game.routes';
+// import gameRouter from './routes/game.routes';
 const app: Application = express();
 const PORT = 6759;
 
@@ -17,7 +17,7 @@ app.use((req, res, next) => {
     res.json({ message: 'API ready to receive requests! 🚀' });
   });
   
-  app.use('/api/game', gameRouter);
+  // app.use('/api/game', gameRouter);
   
 
 

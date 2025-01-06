@@ -1,6 +1,34 @@
-// import { WebSocketServer } from 'ws';
+
+import { Application } from 'express';
 import { WebSocket, WebSocketServer } from 'ws';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
 const ws_port = Number(process.env.PORT) || 8090;
+const app: Application = express();
+
+
+
+const whitelist = ['http://localhost:3000'];
+const corsOptions: cors.CorsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Request not allowed by CORS'));
+    }
+  }
+};
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  next();
+});
+
 
 const wss = new WebSocketServer({ port: ws_port });
 

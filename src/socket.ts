@@ -88,4 +88,4 @@ interface Client {
     });
   });
   
-console.log('WebSocket server is running on ws://localhost:8090');
+console.log(`WebSocket server started on ws://localhost:${ws_port}`);
